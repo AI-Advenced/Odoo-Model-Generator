@@ -6,7 +6,7 @@
 
 **Automatically generate Odoo modules from YAML/JSON configurations**
 
-Odoo Model Generator is a powerful tool that creates complete Odoo modules from simple configuration files. No more repetitive coding—define your models, fields, and relationships in YAML or JSON, and the tool generates all necessary code!
+Odoo Model Generator by TimSoftDZ is a powerful tool that creates complete Odoo modules from simple configuration files. No more repetitive coding—define your models, fields, and relationships in YAML or JSON, and the tool generates all necessary code!
 
 ## ✨ Features
 
@@ -31,7 +31,7 @@ pip install odoo-model-generator
 ### Install from source
 
 ```bash
-git clone https://github.com/odoo-model-generator/odoo-model-generator.git
+git clone https://github.com/AI-Advenced/Odoo-Model-Generator/odoo-model-generator.git
 cd odoo-model-generator
 pip install -e .
 ```
