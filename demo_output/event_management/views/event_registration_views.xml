@@ -1,0 +1,195 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <!-- Vue Liste pour event.registration -->
+        <record id="view_event_registration_tree" model="ir.ui.view">
+            <field name="name">Inscription à un Événement - Liste</field>
+            <field name="model">event.registration</field>
+            <field name="arch" type="xml">
+                <tree string="Inscription à un Événement" decoration-muted="not active">
+                    
+                    <field name="name" optional="show"/>
+                    
+                    <field name="email" optional="show"/>
+                    
+                    <field name="phone" optional="show"/>
+                    
+                    <field name="company" optional="show"/>
+                    
+                    <field name="event_id"/>
+                    
+                    <field name="registration_date" readonly="1"/>
+                    
+                    <field name="state"/>
+                    
+                    <field name="payment_status"/>
+                    
+                </tree>
+            </field>
+        </record>
+<!-- Vue Formulaire pour event.registration -->
+        <record id="view_event_registration_form" model="ir.ui.view">
+            <field name="name">Inscription à un Événement - Formulaire</field>
+            <field name="model">event.registration</field>
+            <field name="arch" type="xml">
+                <form string="Inscription à un Événement">
+                    <header>
+                        <!-- Boutons d'action -->
+                        
+                        <button name="toggle_active" type="object" 
+                                string="Basculer Actif/Inactif" 
+                                class="btn-secondary"/>
+                        
+                    </header>
+                    <sheet>
+                        <div class="oe_button_box" name="button_box">
+                            
+                        </div>
+                        
+                        
+                        
+                        <div class="oe_title">
+                            
+                            <h1>
+                                <field name="name" 
+                                       placeholder="Nom du Participant"/>
+                            </h1>
+                            
+                        </div>
+                        
+                        <group>
+                            
+                            <group string="Informations Générales" col="2">
+                                
+                                <field name="email" required="1"/>
+                                
+                                <field name="phone"/>
+                                
+                                <field name="company"/>
+                                
+                                <field name="state"/>
+                                
+                                <field name="payment_status"/>
+                                
+                                <field name="amount_paid"/>
+                                
+                            </group>
+                            
+                        </group>
+                        
+                        
+                        <notebook>
+                            
+                            <page string="Détails">
+                                
+                                <group>
+                                    
+                                    <field name="registration_date" readonly="1"/>
+                                    
+                                    <field name="notes"/>
+                                    
+                                </group>
+                                
+                            </page>
+                            
+                            <page string="Relations">
+                                
+                                <group>
+                                    
+                                    <field name="event_id" required="1"/>
+                                    
+                                </group>
+                                
+                            </page>
+                            
+                        </notebook>
+                        
+                    </sheet>
+                    <div class="oe_chatter">
+                        <field name="message_follower_ids"/>
+                        <field name="activity_ids"/>
+                        <field name="message_ids"/>
+                    </div>
+                </form>
+            </field>
+        </record>
+<!-- Vue Recherche pour event.registration -->
+        <record id="view_event_registration_search" model="ir.ui.view">
+            <field name="name">Inscription à un Événement - Recherche</field>
+            <field name="model">event.registration</field>
+            <field name="arch" type="xml">
+                <search string="Rechercher Inscription à un Événement">
+                    <!-- Champs de recherche -->
+                    
+                    <field name="name"/>
+                    
+                    <field name="email"/>
+                    
+                    <field name="phone"/>
+                    
+                    <field name="company"/>
+                    
+                    <field name="event_id"/>
+                    
+                    <field name="state"/>
+                    
+                    <field name="payment_status"/>
+                    
+                    <field name="notes"/>
+                    
+                    
+                    <!-- Filtres prédéfinis -->
+                    <separator/>
+                    
+                    <filter string="Actifs" 
+                            name="active" 
+                            domain="[('active', '=', True)]"/>
+                    
+                    <filter string="Inactifs" 
+                            name="inactive" 
+                            domain="[('active', '=', False)]"/>
+                    
+                    
+                    <!-- Groupements -->
+                    <separator/>
+                    <filter string="Grouper par Événement" 
+                            name="group_by_event_id" 
+                            context="{'group_by':'event_id'}"/>
+                </search>
+            </field>
+        </record>
+<!-- Vue Kanban pour event.registration -->
+        <record id="view_event_registration_kanban" model="ir.ui.view">
+            <field name="name">Inscription à un Événement - Kanban</field>
+            <field name="model">event.registration</field>
+            <field name="arch" type="xml">
+                <kanban>
+                    <templates>
+                        <t t-name="kanban-box">
+                            <div class="oe_kanban_card oe_kanban_global_click">
+                                <div class="oe_kanban_content">
+                                    <div class="o_kanban_record_top">
+                                        <div class="o_kanban_record_headings">
+                                            <strong class="o_kanban_record_title">
+                                                <field name="name"/>
+                                            </strong>
+                                        </div>
+                                    </div>
+                                    
+                                    <div class="o_kanban_record_body">
+                                        <field name="email"/>
+                                    </div>
+                                    
+                                    <div class="o_kanban_record_body">
+                                        <field name="phone"/>
+                                    </div>
+                                    
+                                </div>
+                            </div>
+                        </t>
+                    </templates>
+                </kanban>
+            </field>
+        </record>
+    </data>
+</odoo>

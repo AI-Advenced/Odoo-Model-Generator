@@ -1,0 +1,3 @@
+demo_output
+odoo_model_generator
+test_output

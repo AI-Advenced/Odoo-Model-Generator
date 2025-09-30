@@ -1,0 +1,3 @@
+[console_scripts]
+odoo-model-generator = odoo_model_generator.cli:cli
+omg = odoo_model_generator.cli:cli

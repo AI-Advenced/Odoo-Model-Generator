@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <!-- Action pour event.registration -->
+        <record id="action_event_registration" model="ir.actions.act_window">
+            <field name="name">Inscription à un Événement</field>
+            <field name="res_model">event.registration</field>
+            <field name="view_mode">kanban,tree,form,calendar</field>
+            <field name="context">{}</field>
+            <field name="domain">[]</field>
+            <field name="help" type="html">
+                <p class="o_view_nocontent_smiling_face">
+                    Créer votre premier inscription à un événement
+                </p>
+                <p>
+                    Utilisez ce menu pour gérer vos inscription à un événements.
+                    
+                </p>
+            </field>
+            
+            
+            <field name="view_ids" 
+                   eval="[(5, 0, 0),
+                          
+                          (0, 0, {'view_mode': 'kanban', 'view_id': ref('view_event_registration_kanban')}),
+                          
+                          (0, 0, {'view_mode': 'tree', 'view_id': ref('view_event_registration_tree')}),
+                          
+                          (0, 0, {'view_mode': 'form', 'view_id': ref('view_event_registration_form')}),
+                          ]"/>
+            
+        </record>
+
+        
+
+        <!-- Menu principal pour event.registration -->
+        <menuitem id="menu_event_registration"
+                  name="Inscription à un Événement"
+                  action="action_event_registration"
+                  
+                  sequence="10"
+                  groups="base.group_user"/>
+
+        
+
+        
+        
+        <!-- Action supplémentaire: Inscription à un Événement Actifs -->
+        <record id="action_event_registration_active_only" model="ir.actions.act_window">
+            <field name="name">Inscription à un Événement Actifs</field>
+            <field name="res_model">event.registration</field>
+            <field name="view_mode">tree,form</field>
+            <field name="context">{}</field>
+            <field name="domain">[('active', '=', True)]</field>
+            
+        </record>
+        
+        
+
+        
+        
+        <!-- Action serveur: Archiver Inscription à un Événement -->
+        <record id="action_server_event_registration_archive" model="ir.actions.server">
+            <field name="name">Archiver Inscription à un Événement</field>
+            <field name="model_id" ref="model_event_registration"/>
+            <field name="binding_model_id" ref="model_event_registration"/>
+            <field name="state">code</field>
+            <field name="code">
+for record in records:
+    record.active = False
+</field>
+        </record>
+        
+        <!-- Action serveur: Désarchiver Inscription à un Événement -->
+        <record id="action_server_event_registration_unarchive" model="ir.actions.server">
+            <field name="name">Désarchiver Inscription à un Événement</field>
+            <field name="model_id" ref="model_event_registration"/>
+            <field name="binding_model_id" ref="model_event_registration"/>
+            <field name="state">code</field>
+            <field name="code">
+for record in records:
+    record.active = True
+</field>
+        </record>
+        
+        
+    </data>
+</odoo>

@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data noupdate="1">
+        <!-- Données de démonstration pour event.custom -->
+        
+        <record id="event_custom_demo_1" model="event.custom">
+            
+            <field name="name">Événement Demo 1</field>
+            
+            <field name="event_type">conference</field>
+            
+            <field name="location">Valeur démo 1</field>
+            
+            <field name="max_participants">10</field>
+            
+            <field name="price">10.5</field>
+            
+            <field name="status">draft</field>
+            
+            <field name="active">True</field>
+            
+        </record>
+        
+        <record id="event_custom_demo_2" model="event.custom">
+            
+            <field name="name">Événement Demo 2</field>
+            
+            <field name="event_type">workshop</field>
+            
+            <field name="location">Valeur démo 2</field>
+            
+            <field name="max_participants">20</field>
+            
+            <field name="price">21.0</field>
+            
+            <field name="status">published</field>
+            
+            <field name="active">True</field>
+            
+        </record>
+        
+        <record id="event_custom_demo_3" model="event.custom">
+            
+            <field name="name">Événement Demo 3</field>
+            
+            <field name="event_type">seminar</field>
+            
+            <field name="location">Valeur démo 3</field>
+            
+            <field name="max_participants">30</field>
+            
+            <field name="price">31.5</field>
+            
+            <field name="status">ongoing</field>
+            
+            <field name="active">True</field>
+            
+        </record>
+        
+    </data>
+</odoo>

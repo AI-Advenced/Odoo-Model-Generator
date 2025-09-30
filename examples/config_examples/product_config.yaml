@@ -1,0 +1,249 @@
+# Configuration d'exemple pour un module de gestion de produits
+# Utilisez ce fichier avec: omg generate -c product_config.yaml -n product_management
+
+module:
+  name: "Gestion de Produits Personnalisés"
+  version: "17.0.1.0.0"
+  category: "Sales"
+  summary: "Module de gestion de produits avec fonctionnalités étendues"
+  description: |
+    Ce module permet de gérer des produits personnalisés avec des champs
+    supplémentaires et des fonctionnalités avancées.
+    
+    Fonctionnalités:
+    - Catalogue de produits étendu
+    - Gestion des fournisseurs
+    - Suivi des stocks
+    - Catégorisation avancée
+  author: "Mon Entreprise"
+  website: "https://monentreprise.com"
+  depends:
+    - base
+    - mail
+    - product
+    - sale
+
+models:
+  - name: "product.custom"
+    description: "Produit Personnalisé"
+    auto_create_views: true
+    auto_create_menu: true
+    security_groups:
+      - "base.group_user"
+      - "sales_team.group_sale_manager"
+    
+    fields:
+      - name: "name"
+        type: "char"
+        label: "Nom du Produit"
+        required: true
+        size: 200
+        help_text: "Nom commercial du produit"
+      
+      - name: "code"
+        type: "char"
+        label: "Code Produit"
+        required: true
+        size: 50
+        help_text: "Code unique d'identification du produit"
+      
+      - name: "description"
+        type: "text"
+        label: "Description"
+        help_text: "Description détaillée du produit"
+      
+      - name: "specifications"
+        type: "html"
+        label: "Spécifications Techniques"
+        help_text: "Spécifications techniques détaillées"
+      
+      - name: "price"
+        type: "float"
+        label: "Prix de Vente"
+        required: true
+        default: 0.0
+        help_text: "Prix de vente unitaire"
+      
+      - name: "cost_price"
+        type: "float"
+        label: "Prix de Revient"
+        default: 0.0
+        help_text: "Prix de revient ou d'achat"
+      
+      - name: "margin"
+        type: "float"
+        label: "Marge (%)"
+        readonly: true
+        help_text: "Marge calculée automatiquement"
+      
+      - name: "category"
+        type: "selection"
+        label: "Catégorie"
+        selection:
+          - ["electronics", "Électronique"]
+          - ["clothing", "Vêtements"]
+          - ["books", "Livres"]
+          - ["home", "Maison & Jardin"]
+          - ["sports", "Sports & Loisirs"]
+          - ["automotive", "Automobile"]
+          - ["other", "Autre"]
+      
+      - name: "subcategory_id"
+        type: "many2one"
+        label: "Sous-Catégorie"
+        comodel_name: "product.subcategory"
+        help_text: "Sous-catégorie du produit"
+      
+      - name: "supplier_id"
+        type: "many2one"
+        label: "Fournisseur Principal"
+        comodel_name: "res.partner"
+        help_text: "Fournisseur principal du produit"
+      
+      - name: "alternative_supplier_ids"
+        type: "many2many"
+        label: "Fournisseurs Alternatifs"
+        comodel_name: "res.partner"
+        relation: "product_alternative_supplier_rel"
+        column1: "product_id"
+        column2: "supplier_id"
+      
+      - name: "in_stock"
+        type: "boolean"
+        label: "En Stock"
+        default: true
+      
+      - name: "stock_quantity"
+        type: "integer"
+        label: "Quantité en Stock"
+        default: 0
+      
+      - name: "min_stock_level"
+        type: "integer"
+        label: "Niveau de Stock Minimum"
+        default: 5
+        help_text: "Niveau en dessous duquel une alerte est déclenchée"
+      
+      - name: "max_stock_level"
+        type: "integer"
+        label: "Niveau de Stock Maximum"
+        default: 100
+      
+      - name: "weight"
+        type: "float"
+        label: "Poids (kg)"
+        default: 0.0
+      
+      - name: "dimensions"
+        type: "char"
+        label: "Dimensions"
+        size: 50
+        help_text: "Dimensions du produit (L x l x h)"
+      
+      - name: "image"
+        type: "binary"
+        label: "Image Principale"
+      
+      - name: "gallery_ids"
+        type: "one2many"
+        label: "Galerie d'Images"
+        comodel_name: "product.image"
+        inverse_name: "product_id"
+      
+      - name: "launch_date"
+        type: "date"
+        label: "Date de Lancement"
+      
+      - name: "end_of_life_date"
+        type: "date"
+        label: "Date de Fin de Vie"
+      
+      - name: "warranty_period"
+        type: "integer"
+        label: "Période de Garantie (mois)"
+        default: 12
+      
+      - name: "rating"
+        type: "selection"
+        label: "Évaluation"
+        selection:
+          - ["1", "⭐ (1/5)"]
+          - ["2", "⭐⭐ (2/5)"]
+          - ["3", "⭐⭐⭐ (3/5)"]
+          - ["4", "⭐⭐⭐⭐ (4/5)"]
+          - ["5", "⭐⭐⭐⭐⭐ (5/5)"]
+      
+      - name: "notes"
+        type: "text"
+        label: "Notes Internes"
+        help_text: "Notes internes sur le produit"
+
+  # Modèle de support pour les sous-catégories
+  - name: "product.subcategory"
+    description: "Sous-Catégorie de Produit"
+    auto_create_views: true
+    auto_create_menu: true
+    menu_parent: "product.prod_config_main"
+    
+    fields:
+      - name: "name"
+        type: "char"
+        label: "Nom"
+        required: true
+        size: 100
+      
+      - name: "code"
+        type: "char"
+        label: "Code"
+        size: 20
+      
+      - name: "category"
+        type: "selection"
+        label: "Catégorie Parente"
+        selection:
+          - ["electronics", "Électronique"]
+          - ["clothing", "Vêtements"]
+          - ["books", "Livres"]
+          - ["home", "Maison & Jardin"]
+          - ["sports", "Sports & Loisirs"]
+          - ["automotive", "Automobile"]
+          - ["other", "Autre"]
+        required: true
+      
+      - name: "description"
+        type: "text"
+        label: "Description"
+
+  # Modèle pour les images de produits
+  - name: "product.image"
+    description: "Image de Produit"
+    auto_create_views: false
+    auto_create_menu: false
+    
+    fields:
+      - name: "name"
+        type: "char"
+        label: "Nom de l'Image"
+        required: true
+        size: 100
+      
+      - name: "product_id"
+        type: "many2one"
+        label: "Produit"
+        comodel_name: "product.custom"
+        required: true
+      
+      - name: "image"
+        type: "binary"
+        label: "Image"
+        required: true
+      
+      - name: "is_main"
+        type: "boolean"
+        label: "Image Principale"
+        default: false
+      
+      - name: "sequence"
+        type: "integer"
+        label: "Séquence"
+        default: 10
