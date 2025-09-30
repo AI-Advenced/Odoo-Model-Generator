@@ -1,0 +1,171 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <!-- Menu Racine Global -->
+        <menuitem id="custom_module_root"
+                  name="Module Personnalisé"
+                  sequence="10"
+                  web_icon="fa fa-star"/>
+
+<!-- Action pour test.category -->
+        <record id="action_test_category" model="ir.actions.act_window">
+            <field name="name">Catégorie de Test</field>
+            <field name="res_model">test.category</field>
+            <field name="view_mode">tree,form</field>
+            <field name="context">{}</field>
+            <field name="domain">[]</field>
+            <field name="help" type="html">
+                <p class="o_view_nocontent_smiling_face">
+                    Créer votre premier catégorie de test
+                </p>
+                <p>
+                    Utilisez ce menu pour gérer vos catégorie de tests.
+                    
+                </p>
+            </field>
+            
+            
+            <field name="view_ids" 
+                   eval="[(5, 0, 0),
+                          
+                          (0, 0, {'view_mode': 'tree', 'view_id': ref('view_test_category_tree')}),
+                          
+                          (0, 0, {'view_mode': 'form', 'view_id': ref('view_test_category_form')}),
+                          ]"/>
+            
+        </record>
+
+        
+
+        <!-- Menu principal pour test.category -->
+        <menuitem id="menu_test_category"
+                  name="Catégorie de Test"
+                  action="action_test_category"
+                  
+                  sequence="10"
+                  groups="base.group_user"/>
+
+        
+
+        
+        
+        <!-- Action supplémentaire: Catégorie de Test Actifs -->
+        <record id="action_test_category_active_only" model="ir.actions.act_window">
+            <field name="name">Catégorie de Test Actifs</field>
+            <field name="res_model">test.category</field>
+            <field name="view_mode">tree,form</field>
+            <field name="context">{}</field>
+            <field name="domain">[('active', '=', True)]</field>
+            
+        </record>
+        
+        
+
+        
+        
+        <!-- Action serveur: Archiver Catégorie de Test -->
+        <record id="action_server_test_category_archive" model="ir.actions.server">
+            <field name="name">Archiver Catégorie de Test</field>
+            <field name="model_id" ref="model_test_category"/>
+            <field name="binding_model_id" ref="model_test_category"/>
+            <field name="state">code</field>
+            <field name="code">
+for record in records:
+    record.active = False
+</field>
+        </record>
+        
+        <!-- Action serveur: Désarchiver Catégorie de Test -->
+        <record id="action_server_test_category_unarchive" model="ir.actions.server">
+            <field name="name">Désarchiver Catégorie de Test</field>
+            <field name="model_id" ref="model_test_category"/>
+            <field name="binding_model_id" ref="model_test_category"/>
+            <field name="state">code</field>
+            <field name="code">
+for record in records:
+    record.active = True
+</field>
+        </record>
+<!-- Action pour test.advanced.product -->
+        <record id="action_test_advanced_product" model="ir.actions.act_window">
+            <field name="name">Produit Avancé</field>
+            <field name="res_model">test.advanced.product</field>
+            <field name="view_mode">kanban,tree,form</field>
+            <field name="context">{}</field>
+            <field name="domain">[]</field>
+            <field name="help" type="html">
+                <p class="o_view_nocontent_smiling_face">
+                    Créer votre premier produit avancé
+                </p>
+                <p>
+                    Utilisez ce menu pour gérer vos produit avancés.
+                    
+                </p>
+            </field>
+            
+            
+            <field name="view_ids" 
+                   eval="[(5, 0, 0),
+                          
+                          (0, 0, {'view_mode': 'kanban', 'view_id': ref('view_test_advanced_product_kanban')}),
+                          
+                          (0, 0, {'view_mode': 'tree', 'view_id': ref('view_test_advanced_product_tree')}),
+                          
+                          (0, 0, {'view_mode': 'form', 'view_id': ref('view_test_advanced_product_form')}),
+                          ]"/>
+            
+        </record>
+
+        
+
+        <!-- Menu principal pour test.advanced.product -->
+        <menuitem id="menu_test_advanced_product"
+                  name="Produit Avancé"
+                  action="action_test_advanced_product"
+                  
+                  sequence="20"
+                  groups="base.group_user"/>
+
+        
+
+        
+        
+        <!-- Action supplémentaire: Produit Avancé Actifs -->
+        <record id="action_test_advanced_product_active_only" model="ir.actions.act_window">
+            <field name="name">Produit Avancé Actifs</field>
+            <field name="res_model">test.advanced.product</field>
+            <field name="view_mode">tree,form</field>
+            <field name="context">{}</field>
+            <field name="domain">[('active', '=', True)]</field>
+            
+        </record>
+        
+        
+
+        
+        
+        <!-- Action serveur: Archiver Produit Avancé -->
+        <record id="action_server_test_advanced_product_archive" model="ir.actions.server">
+            <field name="name">Archiver Produit Avancé</field>
+            <field name="model_id" ref="model_test_advanced_product"/>
+            <field name="binding_model_id" ref="model_test_advanced_product"/>
+            <field name="state">code</field>
+            <field name="code">
+for record in records:
+    record.active = False
+</field>
+        </record>
+        
+        <!-- Action serveur: Désarchiver Produit Avancé -->
+        <record id="action_server_test_advanced_product_unarchive" model="ir.actions.server">
+            <field name="name">Désarchiver Produit Avancé</field>
+            <field name="model_id" ref="model_test_advanced_product"/>
+            <field name="binding_model_id" ref="model_test_advanced_product"/>
+            <field name="state">code</field>
+            <field name="code">
+for record in records:
+    record.active = True
+</field>
+        </record>
+    </data>
+</odoo>

@@ -1,0 +1,325 @@
+# 🚀 Odoo Model Generator
+
+[![Python Version](https://img.shields.io/badge/python-3.8%2B-blue)](https://www.python.org/downloads/)
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
+[![Code Style: Black](https://img.shields.io/badge/code%20style-black-000000.svg)](https://github.com/psf/black)
+
+**Automatically generate Odoo modules from YAML/JSON configurations**
+
+Odoo Model Generator is a powerful tool that creates complete Odoo modules from simple configuration files. No more repetitive coding—define your models, fields, and relationships in YAML or JSON, and the tool generates all necessary code!
+
+## ✨ Features
+
+* 🎯 **Automatic generation** of full Odoo modules
+* 📝 **Simple configuration** in YAML or JSON
+* 🔧 **All Odoo field types** supported
+* 🎨 **Automatic views** (List, Form, Search, Kanban)
+* 📋 **Menus and actions** generated automatically
+* 🔒 **Permissions and security** configurable
+* 📊 **Demo data** included
+* 🌐 **Intuitive CLI interface**
+* 📖 **Ready-to-use templates** for various domains
+
+## 🚀 Installation
+
+### Install via pip
+
+```bash
+pip install odoo-model-generator
+```
+
+### Install from source
+
+```bash
+git clone https://github.com/odoo-model-generator/odoo-model-generator.git
+cd odoo-model-generator
+pip install -e .
+```
+
+### Verify installation
+
+```bash
+omg --help
+```
+
+## 🎯 Quick Start
+
+### 1. Create a configuration file
+
+```bash
+omg init-config -t basic -o my_config.yaml
+```
+
+### 2. Customize the configuration
+
+Edit `my_config.yaml`:
+
+```yaml
+module:
+  name: "My Custom Module"
+  category: "Custom"
+  description: "Description of my module"
+  
+models:
+  - name: "x_my_model"
+    description: "My Model"
+    fields:
+      - name: "name"
+        type: "char"
+        label: "Name"
+        required: true
+      - name: "description"
+        type: "text"
+        label: "Description"
+```
+
+### 3. Generate the module
+
+```bash
+omg generate -c my_config.yaml -n my_module -o ./output
+```
+
+### 4. Install in Odoo
+
+1. Copy the generated folder to your Odoo addons directory
+2. Restart the Odoo server
+3. Enable developer mode
+4. Go to Apps → Update Apps List
+5. Search and install your module
+
+## 📚 Complete Documentation
+
+### Supported Field Types
+
+| Type        | Description  | Example             |
+| ----------- | ------------ | ------------------- |
+| `char`      | Short text   | Name, reference     |
+| `text`      | Long text    | Description, notes  |
+| `integer`   | Integer      | Quantity, age       |
+| `float`     | Decimal      | Price, percentage   |
+| `boolean`   | Checkbox     | Active, published   |
+| `date`      | Date         | Birthdate           |
+| `datetime`  | Date & time  | Created at          |
+| `selection` | Dropdown     | Status, category    |
+| `many2one`  | Relation N:1 | Customer, category  |
+| `one2many`  | Relation 1:N | Order lines         |
+| `many2many` | Relation N:N | Tags, skills        |
+| `binary`    | File         | Image, document     |
+| `html`      | HTML content | Rich description    |
+| `monetary`  | Monetary     | Price with currency |
+
+### Advanced Configuration Example
+
+```yaml
+module:
+  name: "Product Management"
+  version: "17.0.1.0.0"
+  category: "Sales"
+  depends: ["base", "mail", "sale"]
+  
+models:
+  - name: "product.custom"
+    description: "Custom Product"
+    fields:
+      - name: "name"
+        type: "char"
+        label: "Product Name"
+        required: true
+        size: 200
+        
+      - name: "category"
+        type: "selection"
+        label: "Category"
+        selection:
+          - ["electronics", "Electronics"]
+          - ["clothing", "Clothing"]
+          - ["books", "Books"]
+          
+      - name: "supplier_id"
+        type: "many2one"
+        label: "Supplier"
+        comodel_name: "res.partner"
+        
+      - name: "price"
+        type: "float"
+        label: "Price"
+        required: true
+        default: 0.0
+```
+
+## 🛠️ CLI Commands
+
+### Module generation
+
+```bash
+# Basic generation
+omg generate -c config.yaml -n my_module
+
+# Interactive mode
+omg generate -i -n my_module
+
+# Validate only
+omg generate -c config.yaml --validate-only
+
+# Verbose mode
+omg generate -c config.yaml -n my_module -v
+```
+
+### Templates and configuration
+
+```bash
+# Create a basic template
+omg init-config -t basic -o config.yaml
+
+# List available templates
+omg list-templates
+
+# List available field types
+omg list-fields
+
+# Validate a configuration file
+omg validate config.yaml
+```
+
+### Available Templates
+
+| Template    | Description                    | Usage            |
+| ----------- | ------------------------------ | ---------------- |
+| `basic`     | Basic module with simple model | Quick start      |
+| `crm`       | CRM module with leads          | Sales management |
+| `inventory` | Inventory management module    | Inventory        |
+| `hr`        | Human resources module         | HR & employees   |
+
+## 🔧 Programmatic Usage
+
+```python
+from odoo_model_generator import OdooModelGenerator
+
+generator = OdooModelGenerator()
+
+# Generate from a file
+module_path = generator.generate_from_file(
+    config_file_path='config.yaml',
+    output_path='./output',
+    module_name='my_module'
+)
+
+# Generate from configuration data
+config_data = {
+    'module': {'name': 'My Module'},
+    'models': [...]
+}
+module_path = generator.generate_module(
+    config_data=config_data,
+    output_path='./output',
+    module_name='my_module'
+)
+```
+
+## 📁 Generated Module Structure
+
+```
+my_module/
+├── __init__.py
+├── __manifest__.py
+├── models/
+│   ├── __init__.py
+│   └── my_model.py
+├── views/
+│   ├── my_model_views.xml
+│   └── my_model_menu.xml
+├── security/
+│   └── ir.model.access.csv
+├── data/
+├── demo/
+│   └── my_model_demo.xml
+├── static/
+│   └── description/
+│       ├── icon.png
+│       └── index.html
+└── README.md
+```
+
+## 🎨 Examples
+
+Check the [`examples/`](examples/) folder:
+
+* [`basic_example.py`](examples/basic_example.py) – Basic usage
+* [`advanced_example.py`](examples/advanced_example.py) – Advanced examples
+* [`config_examples/`](examples/config_examples/) – Configuration files
+
+## 🐛 Troubleshooting
+
+**Error: "Module name invalid"**
+
+```bash
+# Use valid names (letters, numbers, underscore)
+omg generate -c config.yaml -n valid_module
+```
+
+**Error: "Field type not supported"**
+
+```bash
+# Check available types
+omg list-fields
+```
+
+**Configuration validation error**
+
+```bash
+# Validate your config
+omg validate config.yaml
+```
+
+## 🤝 Contributing
+
+1. **Fork** the repository
+2. **Create** a feature branch (`git checkout -b feature/AmazingFeature`)
+3. **Commit** your changes (`git commit -m 'Add AmazingFeature'`)
+4. **Push** the branch (`git push origin feature/AmazingFeature`)
+5. **Open** a Pull Request
+
+### Local Development
+
+```bash
+git clone https://github.com/odoo-model-generator/odoo-model-generator.git
+cd odoo-model-generator
+
+pip install -e ".[dev]"
+
+# Run tests
+pytest
+
+# Format code
+black .
+```
+
+## 📄 License
+
+MIT License – see [LICENSE](LICENSE) for details.
+
+## 🎯 Roadmap
+
+* [ ] Support for wizards (TransientModel)
+* [ ] QWeb report generation
+* [ ] Specialized module templates
+* [ ] Web GUI interface
+* [ ] Support for Odoo 18.0
+* [ ] Automatic test generation
+* [ ] CI/CD integration
+
+## 📞 Support
+
+* 📖 **Documentation** – [Link to documentation]
+* 🐛 **Issues** – [GitHub Issues](https://github.com/odoo-model-generator/odoo-model-generator/issues)
+* 💬 **Discussions** – [GitHub Discussions](https://github.com/odoo-model-generator/odoo-model-generator/discussions)
+
+## 🌟 Acknowledgements
+
+* Odoo team for the ERP framework
+* Python community for tools used
+* Project contributors and testers
+
+---
+
+**Made with ❤️ for the Odoo community**

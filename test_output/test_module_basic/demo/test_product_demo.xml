@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data noupdate="1">
+        <!-- Données de démonstration pour test.product -->
+        
+        <record id="test_product_demo_1" model="test.product">
+            
+            <field name="name">Produit de Test Demo 1</field>
+            
+            <field name="description">Description de démonstration pour l'enregistrement 1</field>
+            
+            <field name="price">10.5</field>
+            
+            <field name="active">True</field>
+            
+        </record>
+        
+        <record id="test_product_demo_2" model="test.product">
+            
+            <field name="name">Produit de Test Demo 2</field>
+            
+            <field name="description">Description de démonstration pour l'enregistrement 2</field>
+            
+            <field name="price">21.0</field>
+            
+            <field name="active">True</field>
+            
+        </record>
+        
+        <record id="test_product_demo_3" model="test.product">
+            
+            <field name="name">Produit de Test Demo 3</field>
+            
+            <field name="description">Description de démonstration pour l'enregistrement 3</field>
+            
+            <field name="price">31.5</field>
+            
+            <field name="active">True</field>
+            
+        </record>
+        
+    </data>
+</odoo>

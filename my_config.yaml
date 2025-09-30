@@ -1,0 +1,25 @@
+models:
+- description: Mon Modèle
+  fields:
+  - label: Nom
+    name: name
+    required: true
+    size: 100
+    type: char
+  - label: Description
+    name: description
+    type: text
+  - default: fields.Date.context_today
+    label: Date de Création
+    name: date_creation
+    type: date
+  name: x_my_model
+module:
+  author: Mon Entreprise
+  category: Custom
+  depends:
+  - base
+  - mail
+  description: Module généré automatiquement avec Odoo Model Generator
+  name: Mon Module Personnalisé
+  version: 17.0.1.0.0

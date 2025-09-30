@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <!-- Action pour x_my_model -->
+        <record id="action_x_my_model" model="ir.actions.act_window">
+            <field name="name">Mon Modèle</field>
+            <field name="res_model">x_my_model</field>
+            <field name="view_mode">tree,form,calendar</field>
+            <field name="context">{}</field>
+            <field name="domain">[]</field>
+            <field name="help" type="html">
+                <p class="o_view_nocontent_smiling_face">
+                    Créer votre premier mon modèle
+                </p>
+                <p>
+                    Utilisez ce menu pour gérer vos mon modèles.
+                    
+                </p>
+            </field>
+            
+            
+            <field name="view_ids" 
+                   eval="[(5, 0, 0),
+                          
+                          (0, 0, {'view_mode': 'tree', 'view_id': ref('view_x_my_model_tree')}),
+                          
+                          (0, 0, {'view_mode': 'form', 'view_id': ref('view_x_my_model_form')}),
+                          ]"/>
+            
+        </record>
+
+        
+
+        <!-- Menu principal pour x_my_model -->
+        <menuitem id="menu_x_my_model"
+                  name="Mon Modèle"
+                  action="action_x_my_model"
+                  
+                  sequence="10"
+                  groups="base.group_user"/>
+
+        
+
+        
+        
+        <!-- Action supplémentaire: Mon Modèle Actifs -->
+        <record id="action_x_my_model_active_only" model="ir.actions.act_window">
+            <field name="name">Mon Modèle Actifs</field>
+            <field name="res_model">x_my_model</field>
+            <field name="view_mode">tree,form</field>
+            <field name="context">{}</field>
+            <field name="domain">[('active', '=', True)]</field>
+            
+        </record>
+        
+        
+
+        
+        
+        <!-- Action serveur: Archiver Mon Modèle -->
+        <record id="action_server_x_my_model_archive" model="ir.actions.server">
+            <field name="name">Archiver Mon Modèle</field>
+            <field name="model_id" ref="model_x_my_model"/>
+            <field name="binding_model_id" ref="model_x_my_model"/>
+            <field name="state">code</field>
+            <field name="code">
+for record in records:
+    record.active = False
+</field>
+        </record>
+        
+        <!-- Action serveur: Désarchiver Mon Modèle -->
+        <record id="action_server_x_my_model_unarchive" model="ir.actions.server">
+            <field name="name">Désarchiver Mon Modèle</field>
+            <field name="model_id" ref="model_x_my_model"/>
+            <field name="binding_model_id" ref="model_x_my_model"/>
+            <field name="state">code</field>
+            <field name="code">
+for record in records:
+    record.active = True
+</field>
+        </record>
+        
+        
+    </data>
+</odoo>

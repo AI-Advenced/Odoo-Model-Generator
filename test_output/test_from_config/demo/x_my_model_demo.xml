@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data noupdate="1">
+        <!-- Données de démonstration pour x_my_model -->
+        
+        <record id="x_my_model_demo_1" model="x_my_model">
+            
+            <field name="name">Mon Modèle Demo 1</field>
+            
+            <field name="description">Description de démonstration pour l'enregistrement 1</field>
+            
+            <field name="active">True</field>
+            
+        </record>
+        
+        <record id="x_my_model_demo_2" model="x_my_model">
+            
+            <field name="name">Mon Modèle Demo 2</field>
+            
+            <field name="description">Description de démonstration pour l'enregistrement 2</field>
+            
+            <field name="active">True</field>
+            
+        </record>
+        
+        <record id="x_my_model_demo_3" model="x_my_model">
+            
+            <field name="name">Mon Modèle Demo 3</field>
+            
+            <field name="description">Description de démonstration pour l'enregistrement 3</field>
+            
+            <field name="active">True</field>
+            
+        </record>
+        
+    </data>
+</odoo>

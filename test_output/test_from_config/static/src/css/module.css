@@ -1,0 +1,13 @@
+/* Styles personnalisés pour le module */
+
+.o_module_custom {
+    /* Vos styles personnalisés ici */
+}
+
+.o_form_view .o_module_custom .oe_title h1 {
+    color: #875A7B;
+}
+
+.o_kanban_view .o_module_custom {
+    border-left: 3px solid #875A7B;
+}

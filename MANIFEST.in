@@ -1,0 +1,31 @@
+# MANIFEST.in - Fichiers à inclure dans la distribution
+
+# Documentation
+include README.md
+include LICENSE
+include CHANGELOG.md
+
+# Configuration
+include requirements.txt
+include pyproject.toml
+include setup.py
+
+# Exemples et templates
+recursive-include examples *.py *.yaml *.json *.md
+recursive-include odoo_model_generator/templates *.py *.xml *.txt
+recursive-include odoo_model_generator/config *.py
+
+# Tests (inclus dans la distribution source seulement)
+recursive-include tests *.py
+
+# Exclusions
+recursive-exclude * __pycache__
+recursive-exclude * *.py[co]
+recursive-exclude * *.orig
+recursive-exclude * *.rej
+recursive-exclude * *~
+recursive-exclude * .git*
+recursive-exclude * .DS_Store
+recursive-exclude examples/output *
+recursive-exclude build *
+recursive-exclude dist *
